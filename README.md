@@ -1,30 +1,37 @@
+# Note-Taking Web App Backend Guide
 
-# BACKEND
+This guide provides a concise overview of setting up the backend for a note-taking web application. It covers the essential steps and considerations for developers looking to build a robust backend.
 
-The backend of note-taking web app is mention below. first start with creating folder.
+## Setting Up the Express Server
 
-## Setting Up Express Server
+**1. Create a Server Directory**
 
-### 1. Create a new directory for your `server`
+Start by creating a new directory for project server.
 
 ```bash
 mkdir server
 ```
 
-### 2. Initialize a New Node.js Project
+**2. Initialize a Node.js Project**
+
+Navigate into the server directory and initialize a new Node.js project.
 
 ```bash
 cd server
 npm init -y
 ```
 
-### 3. Install Express and Other Dependencies
+**3. Install Dependencies**
 
-```
+Install the necessary packages for your project.
+
+```bash
 npm install express bcryptjs cookie-parser cors dotenv jsonwebtoken multer mysql2 nodemon uuid
 ```
 
-### 4. Update Your `package.json` Scripts
+**4. Update `package.json` Scripts**
+
+Add scripts for development and production environments.
 
 ```
 "scripts": {
@@ -33,13 +40,13 @@ npm install express bcryptjs cookie-parser cors dotenv jsonwebtoken multer mysql
 }
 ```
 
-### 5. Environment Variables
+**5. Environment Variables**
 
-To run this project, you will need to add the following environment variables to your `.env` file
+Create a `.env` file to store environment variables.
 
-```
+```python
 NODE_ENV=development #production
-PORT=9000 
+PORT=9000
 X_CLIENT_URL=* #http://localhost:3000
 
 DB_HOST=localhost #writer.crxbzf8ajipn.us-east-1.rds.amazonaws.com
@@ -53,13 +60,76 @@ JWT_EXPIRES_IN=7d
 JWT_COOKIE_EXPIR_IN=7 # expire in 7 days
 ```
 
-### 6. Create necessary folders
+**6. Create Necessary Folders**
 
-```
+Organize your project by creating directories for controllers, public assets, routes, and uploads
+
+```bash
 mkdir controllers
 mkdir public
 mkdir routes
 mkdir upload
+```
+
+## Database Setup
+
+Ensure you have a database schema that includes tables for users, notes, folders, bookmarks, and shares. Define relationships between these tables as necessary.
+
+`charset:` utf8mb4  
+`collation:` utf8mb4_0900_ai_ci
+
+**Schema Query**
+
+```bash
+DROP DATABASE IF EXISTS writer;
+CREATE DATABASE writer;
+USE writer;
+
+CREATE TABLE users (
+    user_id VARCHAR(45) PRIMARY KEY NOT NULL,
+    username VARCHAR(45) UNIQUE NOT NULL,
+    email VARCHAR(45) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE folders (
+    folder_id VARCHAR(45) PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id VARCHAR(45) NOT NULL,
+    CONSTRAINT f_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE notes (
+    note_id VARCHAR(45) PRIMARY KEY NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    content TEXT DEFAULT NULL,
+    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted BOOLEAN DEFAULT false,
+    favorite BOOLEAN DEFAULT false,
+    archive BOOLEAN DEFAULT false,
+    folder_id VARCHAR(45) NOT NULL,
+    CONSTRAINT n_folder_id FOREIGN KEY (folder_id) REFERENCES folders(folder_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id VARCHAR(45) NOT NULL,
+    CONSTRAINT n_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE shares (
+    share_id VARCHAR(45) PRIMARY KEY NOT NULL,
+    note_id VARCHAR(45) UNIQUE NOT NULL,
+    CONSTRAINT s_note_id FOREIGN KEY (note_id) REFERENCES notes(note_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id VARCHAR(45) NOT NULL,
+    CONSTRAINT s_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE bookmarks (
+    bookmark_id VARCHAR(45) PRIMARY KEY NOT NULL,
+    share_id VARCHAR(45) NOT NULL,
+    CONSTRAINT b_share_id FOREIGN KEY (share_id) REFERENCES shares(share_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id VARCHAR(45) NOT NULL,
+    CONSTRAINT b_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 ```
 
 ## Top Level Files
@@ -193,6 +263,7 @@ app.listen(process.env.PORT || 9000, () => {
   console.log('Connected!')
 })
 ```
+
 ## Routes Files
 
 ### routes/auth.js
@@ -255,7 +326,6 @@ router.put('/:id', updateFolder)
 export default router
 ```
 
-
 ### routes/img.js
 
 ```javascript
@@ -269,7 +339,6 @@ router.post('/', saveFile, addImg)
 
 export default router
 ```
-
 
 ### routes/notes.js
 
@@ -293,7 +362,6 @@ router.delete('/:id', deleteNote)
 
 export default router
 ```
-
 
 ### routes/shares.js
 
@@ -328,9 +396,11 @@ router.put('/', updateUser)
 
 export default router
 ```
+
 ## Controllers Files
 
 ### controllers/auth.js
+
 ```javascript
 import dotenv from 'dotenv'
 import bcrypt from 'bcryptjs'
@@ -441,6 +511,7 @@ export const logout = (req, res) => {
 ```
 
 ### controllers/bookmarks.js
+
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -581,6 +652,7 @@ export const deleteBookmark = (req, res) => {
 ```
 
 ### controllers/folder.js
+
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -715,6 +787,7 @@ export const updateFolder = (req, res) => {
 ```
 
 ### controllers/img.js
+
 ```javascript
 import multer from 'multer'
 import fs from 'fs'
@@ -876,6 +949,7 @@ export const checkAndDeleteImg = (oldcontent, newContent) => {
 ```
 
 ### controllers/notes.js
+
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -1115,6 +1189,7 @@ export const updateNote = (req, res) => {
 ```
 
 ### controllers/shares.js
+
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -1228,6 +1303,7 @@ export const deleteShare = (req, res) => {
 ```
 
 ### controllers/users.js
+
 ```javascript
 import dotenv from 'dotenv'
 import bcrypt from 'bcryptjs'
