@@ -62,11 +62,11 @@ mkdir routes
 mkdir upload
 ```
 
-## Main Files
+## Top Level Files
 
-### db.js
+### ./db.js
 
-```
+```javascript
 import dotenv from 'dotenv'
 import mysql2 from 'mysql2'
 
@@ -80,9 +80,9 @@ export const db = mysql2.createPool({
 })
 ```
 
-### index.js
+### ./index.js
 
-```
+```javascript
 import { fileURLToPath } from 'url'
 import fs from 'fs'
 import path from 'path'
@@ -195,9 +195,9 @@ app.listen(process.env.PORT || 9000, () => {
 ```
 ## Routes Files
 
-### auth.js
+### routes/auth.js
 
-```
+```javascript
 import express from 'express'
 import { verify, register, login, logout } from '../controllers/auth.js'
 
@@ -211,9 +211,9 @@ router.post('/logout', logout)
 export default router
 ```
 
-### bookmarks.js
+### routes/bookmarks.js
 
-```
+```javascript
 import express from 'express'
 import {
   getBookmarks,
@@ -232,9 +232,9 @@ router.delete('/:id', deleteBookmark)
 export default router
 ```
 
-### folder.js
+### routes/folder.js
 
-```
+```javascript
 import express from 'express'
 import {
   getFolders,
@@ -256,9 +256,9 @@ export default router
 ```
 
 
-### img.js
+### routes/img.js
 
-```
+```javascript
 import express from 'express'
 import { saveFile, addImg, getImg } from '../controllers/img.js'
 
@@ -271,9 +271,9 @@ export default router
 ```
 
 
-### notes.js
+### routes/notes.js
 
-```
+```javascript
 import express from 'express'
 import {
   getNotes,
@@ -295,9 +295,9 @@ export default router
 ```
 
 
-### shares.js
+### routes/shares.js
 
-```
+```javascript
 import express from 'express'
 import {
   getShares,
@@ -316,9 +316,9 @@ router.delete('/:id', deleteShare)
 export default router
 ```
 
-### users.js
+### routes/users.js
 
-```
+```javascript
 import express from 'express'
 import { updateUser } from '../controllers/user.js'
 
@@ -330,7 +330,7 @@ export default router
 ```
 ## Controllers Files
 
-### auth.js
+### controllers/auth.js
 ```javascript
 import dotenv from 'dotenv'
 import bcrypt from 'bcryptjs'
@@ -440,7 +440,7 @@ export const logout = (req, res) => {
 }
 ```
 
-### bookmarks.js
+### controllers/bookmarks.js
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -580,7 +580,7 @@ export const deleteBookmark = (req, res) => {
 }
 ```
 
-### folder.js
+### controllers/folder.js
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -714,7 +714,7 @@ export const updateFolder = (req, res) => {
 }
 ```
 
-### img.js
+### controllers/img.js
 ```javascript
 import multer from 'multer'
 import fs from 'fs'
@@ -875,7 +875,7 @@ export const checkAndDeleteImg = (oldcontent, newContent) => {
 }
 ```
 
-### notes.js
+### controllers/notes.js
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -1114,7 +1114,7 @@ export const updateNote = (req, res) => {
 }
 ```
 
-### shares.js
+### controllers/shares.js
 ```javascript
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
@@ -1227,7 +1227,7 @@ export const deleteShare = (req, res) => {
 }
 ```
 
-### users.js
+### controllers/users.js
 ```javascript
 import dotenv from 'dotenv'
 import bcrypt from 'bcryptjs'
