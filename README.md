@@ -1,10 +1,8 @@
-
 # Note-Taking Web App Frontend Guide
 
 This guide provides a concise overview of setting up the frontend for a note-taking web application. It covers the essential steps and considerations for developers looking to build a robust frontend.
 
 ## Setting Up the React Application
-
 
 **1. Create a Frontend Directory**
 
@@ -13,7 +11,6 @@ Start by creating a new directory for project frontend.
 ```bash
 mkdir frontend
 ```
-
 
 **2. Initialize a React.js Project**
 
@@ -93,17 +90,10 @@ Add scripts for development and production environments.
     "zustand": "^4.4.1"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -116,7 +106,6 @@ Add scripts for development and production environments.
 }
 ```
 
-
 **4. Install Dependencies**
 
 Install the necessary packages for your project.
@@ -124,7 +113,6 @@ Install the necessary packages for your project.
 ```bash
 npm install
 ```
-
 
 **5. Environment Variables**
 
@@ -243,7 +231,9 @@ module.exports = {
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 }
 ```
+
 ## `public` Files
+
 In a typical React web application, `index.html` serves as the entry point for the application.
 
 **./index.html**
@@ -276,11 +266,11 @@ In a typical React web application, `index.html` serves as the entry point for t
     <div id="root"></div>
   </body>
 </html>
-
 ```
+
 ## `src` Files
 
-### Top Level
+### `src/` Top Level
 
 **./index.js**
 
@@ -414,8 +404,8 @@ function Routes() {
 
 export default Routes
 ```
-### `src/pages`
 
+### `src/pages`
 
 **./error.js**
 
@@ -687,7 +677,6 @@ function Login() {
 export default Login
 ```
 
-
 **./register.js**
 
 ```javascript
@@ -875,7 +864,6 @@ function Register() {
 export default Register
 ```
 
-
 **./app/archives.js**
 
 ```javascript
@@ -932,7 +920,6 @@ const Archives = () => {
 
 export default Archives
 ```
-
 
 **./app/bookmark.js**
 
@@ -992,7 +979,6 @@ const Bookmarks = () => {
 export default Bookmarks
 ```
 
-
 **./app/favorites.js**
 
 ```javascript
@@ -1049,7 +1035,6 @@ const Favorites = () => {
 
 export default Favorites
 ```
-
 
 **./app/folders.js**
 
@@ -1124,7 +1109,6 @@ const Folders = () => {
 export default Folders
 ```
 
-
 **./app/index.js**
 
 ```javascript
@@ -1181,7 +1165,6 @@ const App = () => {
 
 export default App
 ```
-
 
 **./app/readShare.js**
 
@@ -1274,7 +1257,6 @@ function ReadShare() {
 export default ReadShare
 ```
 
-
 **./app/redirect.js**
 
 ```javascript
@@ -1306,7 +1288,6 @@ function Redirect() {
 
 export default Redirect
 ```
-
 
 **./app/shares.js**
 
@@ -1390,7 +1371,6 @@ const Shares = () => {
 
 export default Shares
 ```
-
 
 **./app/trash.js**
 
@@ -1779,6 +1759,7 @@ export const AppProvider = ({ children }) => {
   )
 }
 ```
+
 ### `src/components`
 
 **./animate.js**
@@ -2696,7 +2677,6 @@ function BubbleEditor({ editor }) {
 
 export default BubbleEditor
 ```
-
 
 **./noteEditor/editor/editor.css**
 
@@ -5037,8 +5017,8 @@ const DialogDelete = () => {
         </DialogHeader>
         <p>
           Are you sure you want to delete
-          <span className='font-bold'> {deleteData?.name} </span> folder?. This
-          will also delete all notes
+          <span className='font-bold'> {deleteData?.name} </span> folder?. This will
+          also delete all notes
         </p>
         <DialogFooter>
           <Button
@@ -7159,6 +7139,7 @@ function useToast() {
 
 export { useToast, toast }
 ```
+
 ### `src/layouts`
 
 **./app.js**
@@ -7218,6 +7199,7 @@ export default function HomeLayout({ children }) {
   )
 }
 ```
+
 ### `src/lib`
 
 **./utils.js**
@@ -7295,9 +7277,10 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
 
 <p>I also had a few rough patches in my relationships this month. I had a couple of misunderstandings with friends and it was hard to navigate those conflicts. But I'm glad we were able to talk things through and move past them. I value my relationships and I want to make sure I'm always working to be a good friend.</p>
 
-<p>Overall, it was a good month with a mix of ups and downs. I'm looking forward to what July has in store! I'm hoping to make some more progress on my goals and spend quality time with the people I care about.</p>`;
+<p>Overall, it was a good month with a mix of ups and downs. I'm looking forward to what July has in store! I'm hoping to make some more progress on my goals and spend quality time with the people I care about.</p>`
 ```
-## `src/styles`
+
+### `src/styles`
 
 **./css/custom.css**
 
@@ -7345,9 +7328,9 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   font-weight: 200;
   font-display: swap;
   src: url(../fonts/b423eff6dafa6815-s.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01a0-01a1,
-    U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329,
-    U+1ea0-1ef9, U+20ab;
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+    U+01a0-01a1, U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323,
+    U+0329, U+1ea0-1ef9, U+20ab;
 }
 
 @font-face {
@@ -7414,9 +7397,9 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   font-weight: 300;
   font-display: swap;
   src: url(../fonts/ad1857a67a27e465-s.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01a0-01a1,
-    U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329,
-    U+1ea0-1ef9, U+20ab;
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+    U+01a0-01a1, U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323,
+    U+0329, U+1ea0-1ef9, U+20ab;
 }
 
 @font-face {
@@ -7483,9 +7466,9 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   font-weight: 400;
   font-display: swap;
   src: url(../fonts/6b30462463a75ce7-s.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01a0-01a1,
-    U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329,
-    U+1ea0-1ef9, U+20ab;
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+    U+01a0-01a1, U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323,
+    U+0329, U+1ea0-1ef9, U+20ab;
 }
 
 @font-face {
@@ -7552,9 +7535,9 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   font-weight: 600;
   font-display: swap;
   src: url(../fonts/57c2f9c15684dfcb-s.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01a0-01a1,
-    U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329,
-    U+1ea0-1ef9, U+20ab;
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+    U+01a0-01a1, U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323,
+    U+0329, U+1ea0-1ef9, U+20ab;
 }
 
 @font-face {
@@ -7738,9 +7721,6 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   }
 }
 ```
-
-
-
 
 # Note-Taking Web App Backend Guide
 
