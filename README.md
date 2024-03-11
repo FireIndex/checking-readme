@@ -1,3 +1,5 @@
+_https://dillinger.io/_ (preview styled html)
+
 # Note-Taking Web App Frontend Guide
 
 This guide provides a concise overview of setting up the frontend for a note-taking web application. It covers the essential steps and considerations for developers looking to build a robust frontend.
@@ -80,7 +82,7 @@ Add scripts for development and production environments.
     "react-icons": "^4.9.0",
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.16.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "slugify": "^1.6.6",
     "tailwind-merge": "^1.13.0",
     "tailwindcss": "^3.3.3",
@@ -7721,6 +7723,9 @@ export const CONTENT = `<p>It's hard to believe that June is already over! Looki
   }
 }
 ```
+
+**./font/\*.fonts**  
+Add the necessary font files to the `./font` directory.
 
 # Note-Taking Web App Backend Guide
 
